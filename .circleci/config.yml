@@ -8,6 +8,7 @@ jobs:
   build:
     docker:
       - image: 'circleci/openjdk:latest'
+    working_directory: /home/circleci/project
     steps:
       - checkout
       - run: mvn clean install
@@ -17,3 +18,5 @@ jobs:
           path: target/surefire-reports
       - store_artifacts:
           path: target
+      - codecov/upload:
+          file: target/surefire-reports
