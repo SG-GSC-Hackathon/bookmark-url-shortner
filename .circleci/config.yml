@@ -19,4 +19,4 @@ jobs:
       - store_artifacts:
           path: target
       - codecov/upload:
-          file: coverage/packages/core/coverage-final.json
+          file: src/main/resources/coverage-final.json
