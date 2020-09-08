@@ -13,11 +13,10 @@ jobs:
       - checkout
       - run: mvn clean install
       - run: mvn test
-      - run: mvn cobertura:cobertura
-      - run: bash <(curl -s https://codecov.io/bash)
       - store_test_results:
           path: target/surefire-reports
       - store_artifacts:
           path: target
       - codecov/upload:
-          file: src/main/resources/coverage-final.json
+          file: './coverage/clover.xml'
+      - run: bash <(curl -s https://codecov.io/bash)
