@@ -10,6 +10,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name="group", schema = "bookmarkurlshortner")
+//@Embeddable
 public class BookMarkUrlGroup {
 
     @Id

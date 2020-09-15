@@ -1,17 +1,13 @@
 package digital.transformation.bookmarkurlshortner.model.response;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class BookMarkUrlCardResponseTest {
 
-class BookMarkUrlCardResponseTest {
+    private BookMarkUrlCardResponse bookMarkUrlCardResponseUnderTest;
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
+        bookMarkUrlCardResponseUnderTest = new BookMarkUrlCardResponse();
     }
 }

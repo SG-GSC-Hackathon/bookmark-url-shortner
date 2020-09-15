@@ -1,17 +1,13 @@
 package digital.transformation.bookmarkurlshortner.model.entity;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class BookMarkUrlIconTest {
 
-class BookMarkUrlIconTest {
+    private BookMarkUrlIcon bookMarkUrlIconUnderTest;
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
+        bookMarkUrlIconUnderTest = new BookMarkUrlIcon("originalFilename", "contentType", "content".getBytes(), 0);
     }
 }

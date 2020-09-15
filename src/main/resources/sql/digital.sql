@@ -1,6 +1,6 @@
 create schema bookmarkurlshortner;
 
-create table bookmarkurlshortner.card
+create table bookmarkurlshortner.bookMarkUrlCard
 (
     id           bigint not null
         constraint card_pkey
@@ -21,7 +21,7 @@ create table bookmarkurlshortner.card
     updated_date timestamp
 );
 
-create table bookmarkurlshortner.group
+create table bookmarkurlshortner.bookMarkUrlGroup
 (
     id           bigint not null
         constraint group_pkey
@@ -48,7 +48,7 @@ create table bookmarkurlshortner.user
     active boolean not null
 );
 
-create table bookmarkurlshortner.icon
+create table bookmarkurlshortner.bookMarkUrlIcon
 (
 	id serial not null,
 	name varchar,
@@ -59,15 +59,15 @@ create table bookmarkurlshortner.icon
 
 
 create unique index icon_id_uindex
-	on bookmarkurlshortner.icon (id);
+	on bookmarkurlshortner.bookMarkUrlIcon (id);
 
-alter table bookmarkurlshortner.icon
+alter table bookmarkurlshortner.bookMarkUrlIcon
 	add constraint icon_pk
 		primary key (id);
 
 -----------------------------------------------
 
-create table bookmarkurlshortner."user-in-group"
+create table bookmarkurlshortner."user-in-bookMarkUrlGroup"
 (
 	id serial not null,
 	email varchar,
@@ -77,9 +77,9 @@ create table bookmarkurlshortner."user-in-group"
 );
 
 create unique index "user-in-group_id_uindex"
-	on bookmarkurlshortner."user-in-group" (id);
+	on bookmarkurlshortner."user-in-bookMarkUrlGroup" (id);
 
-alter table bookmarkurlshortner."user-in-group"
+alter table bookmarkurlshortner."user-in-bookMarkUrlGroup"
 	add constraint "user-in-group_pk"
 		primary key (id);
 
@@ -102,7 +102,7 @@ alter table bookmarkurlshortner.url
 
 --------------------------------------
 
-create table bookmarkurlshortner."card-in-group"
+create table bookmarkurlshortner."bookMarkUrlCard-in-bookMarkUrlGroup"
 (
 	id serial not null,
 	card_id int,
@@ -111,9 +111,9 @@ create table bookmarkurlshortner."card-in-group"
 	added_by varchar
 );
 
-create unique index "card-in-group_id_uindex"
-	on bookmarkurlshortner."card-in-group" (id);
+create unique index "bookMarkUrlCard-in-group_id_uindex"
+	on bookmarkurlshortner."bookMarkUrlCard-in-bookMarkUrlGroup" (id);
 
-alter table bookmarkurlshortner."card-in-group"
-	add constraint "card-in-group_pk"
+alter table bookmarkurlshortner."bookMarkUrlCard-in-bookMarkUrlGroup"
+	add constraint "bookMarkUrlCard-in-group_pk"
 		primary key (id);

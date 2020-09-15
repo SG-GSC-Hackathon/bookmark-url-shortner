@@ -1,5 +1,6 @@
 package digital.transformation.bookmarkurlshortner.services;
 
+import co.elastic.apm.api.CaptureSpan;
 import digital.transformation.bookmarkurlshortner.api.BookMarkUrlGroupApi;
 import digital.transformation.bookmarkurlshortner.exception.BookMarkUrlDigitalOrgException;
 import digital.transformation.bookmarkurlshortner.managers.BookMarkUrlGroupManager;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController("GroupService")
 public class BookMarkUrlGroupService implements BookMarkUrlGroupApi {
@@ -57,5 +60,11 @@ public class BookMarkUrlGroupService implements BookMarkUrlGroupApi {
         //        TODO : validation : admin is valid admin for given group
         bookMarkUrlGroupManager.removeUserToGroup(user, bookMarkUrlGroupManager.getGroupById(groupId).getName(), admin);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    @CaptureSpan(value = "getAllcard", type = "service", subtype = "http")
+    public ResponseEntity<List> getAllGroupService(String email) throws BookMarkUrlDigitalOrgException {
+        return new ResponseEntity<>(bookMarkUrlGroupManager.getAllGroupManager(email), HttpStatus.OK);
     }
 }

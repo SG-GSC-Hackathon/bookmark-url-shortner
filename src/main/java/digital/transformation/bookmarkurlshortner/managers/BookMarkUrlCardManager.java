@@ -62,7 +62,7 @@ public class BookMarkUrlCardManager {
 
         ModelMapper resModelMapper = new ModelMapper();
         BookMarkUrlCardResponse bookMarkUrlCardResponse = resModelMapper.map(response, BookMarkUrlCardResponse.class);
-//        MultipartFile file = new DigitalMultipartFile(decompressBytes(response.getFile()));
+//        MultipartFile file = new BookMarkUrlDigitalMultipartFile(decompressBytes(response.getFile()));
 //        bookMarkUrlCardResponse.setFile(file);
 
         return bookMarkUrlCardResponse;
@@ -85,12 +85,6 @@ public class BookMarkUrlCardManager {
         return card.get();
     }
 
-    public List<BookMarkUrlCardResponse> getAllCard() {
-        List<BookMarkUrlCardResponse> cardList = bookMarkUrlCardRepository.findAll().stream()
-                .collect(Collectors.mapping(p -> new ModelMapper().map(p, BookMarkUrlCardResponse.class), Collectors.toList()));
-        return cardList;
-    }
-
     public void uplaodImage(BookMarkUrlIcon bookMarkUrlIcon) {
         bookMarkUrlIconRepository.save(bookMarkUrlIcon);
     }
@@ -103,4 +97,22 @@ public class BookMarkUrlCardManager {
     public void deleteCard(int cardId) {
         bookMarkUrlCardRepository.deleteById(cardId);
     }
+
+
+    public List<BookMarkUrlCardResponse> getAllCard(String emailId) {
+        List<BookMarkUrlCardResponse> cardList = bookMarkUrlCardRepository.findAll().stream()
+                .collect(Collectors.mapping(p -> new ModelMapper().map(p, BookMarkUrlCardResponse.class), Collectors.toList()));
+
+        List<BookMarkUrlCardResponse> bookMarkUrlCardResponseList = cardList.stream().map(bookMarkUrlCardResponse -> {
+            if(bookMarkUrlCardResponse.getCreated_by().equals(emailId)) {
+                bookMarkUrlCardResponse.setHasAdmin(true);
+            }
+            else {
+                bookMarkUrlCardResponse.setHasAdmin(false);
+            }
+            return bookMarkUrlCardResponse;
+        }).collect(Collectors.toList());
+        return bookMarkUrlCardResponseList;
+    }
+
 }

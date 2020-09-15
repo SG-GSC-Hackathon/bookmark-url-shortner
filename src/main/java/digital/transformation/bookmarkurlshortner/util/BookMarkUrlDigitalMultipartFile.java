@@ -6,11 +6,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DigitalMultipartFile implements MultipartFile {
+public class BookMarkUrlDigitalMultipartFile implements MultipartFile {
 
     private final byte[] imgContent;
 
-    public DigitalMultipartFile(byte[] imgContent) {
+    public BookMarkUrlDigitalMultipartFile(byte[] imgContent) {
         this.imgContent = imgContent;
     }
 

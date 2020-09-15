@@ -74,6 +74,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>co.elastic.apm</groupId>
+			<artifactId>apm-agent-attach</artifactId>
+			<version>1.18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>co.elastic.apm</groupId>
+			<artifactId>apm-agent-api</artifactId>
+			<version>1.18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.3.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -31,4 +31,7 @@ public class BookMarkUrlCard {
     private String group_name;
     private Boolean active;
 
+//    @Embedded
+//    private BookMarkUrlGroup group;
+
 }

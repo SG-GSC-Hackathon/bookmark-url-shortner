@@ -7,9 +7,11 @@ import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/group")
 @Api(tags = "BookMarkUrlGroup Services", description = "BookMarkUrlGroup Api")
-@CrossOrigin(origins = {"https://localhost:8081", "http://localhost:4200"})
+@CrossOrigin(origins = {"https://bookmark-url-shortner.herokuapp.com/", "http://localhost:4200", "http://localhost:8081"})
 public interface BookMarkUrlGroupApi {
 
     @ApiOperation(value = "Create new group", notes = "BookMarkUrlUser to create New group", response = ResponseEntity.class)
@@ -42,4 +44,9 @@ public interface BookMarkUrlGroupApi {
     @ApiResponses(value = {@ApiResponse(code = 201, message = "accepted operation", response = BookMarkUrlGroup.class), @ApiResponse(code = 400, message = "BookMarkUrlGroup type unknown")})
     @PostMapping(path = "/remove-user-from-group", consumes = "application/json", produces = "application/json")
     ResponseEntity removeUserFromGroup(@ApiParam(value = "group object", required = true) @RequestBody String user, String admin,int groupId) throws BookMarkUrlDigitalOrgException;
+
+    @ApiOperation(value = "Get All group ", notes = "Get all group", response = ResponseEntity.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "ok", response = ResponseEntity.class), @ApiResponse(code = 400, message = "bad request")})
+    @PostMapping(path = "/all", produces = "application/json")
+    public ResponseEntity<List> getAllGroupService(@RequestBody String email) throws BookMarkUrlDigitalOrgException;
 }

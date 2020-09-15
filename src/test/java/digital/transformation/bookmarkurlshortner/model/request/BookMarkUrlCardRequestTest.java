@@ -1,17 +1,13 @@
 package digital.transformation.bookmarkurlshortner.model.request;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class BookMarkUrlCardRequestTest {
 
-class BookMarkUrlCardRequestTest {
+    private BookMarkUrlCardRequest bookMarkUrlCardRequestUnderTest;
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
+        bookMarkUrlCardRequestUnderTest = new BookMarkUrlCardRequest();
     }
 }

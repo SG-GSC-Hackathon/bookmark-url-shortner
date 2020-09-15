@@ -11,9 +11,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class BookMarkUrlGroupManager {
@@ -29,9 +31,6 @@ public class BookMarkUrlGroupManager {
         return card.get();
     }
 
-    public List<BookMarkUrlGroup> getAllGroup() {
-        return groupRepository.findAll();
-    }
 
     public List<BookMarkUrlGroup> findAllActiveGroup() {
         return groupRepository.findAllActiveGroup(true);
@@ -77,5 +76,22 @@ public class BookMarkUrlGroupManager {
 
             return "";
         });
+    }
+
+    public List<BookMarkUrlGroupResponse> getAllGroupManager(String emailId) {
+        List<BookMarkUrlGroupResponse> groupList = groupRepository.findAll().stream()
+                .collect(Collectors.mapping(p -> new ModelMapper().map(p, BookMarkUrlGroupResponse.class), Collectors.toList()));
+
+        List<BookMarkUrlGroupResponse> bookMarkUrlGroupResponseList = groupList.stream().map(bookMarkUrlGroupResponse -> {
+            if(bookMarkUrlGroupResponse.getCreated_by().equals(emailId)) {
+                bookMarkUrlGroupResponse.setHasAdmin(true);
+            }
+            else {
+                bookMarkUrlGroupResponse.setHasAdmin(false);
+            }
+            bookMarkUrlGroupResponse.setAdmin(new ArrayList<>());
+            return bookMarkUrlGroupResponse;
+        }).collect(Collectors.toList());
+        return bookMarkUrlGroupResponseList;
     }
 }

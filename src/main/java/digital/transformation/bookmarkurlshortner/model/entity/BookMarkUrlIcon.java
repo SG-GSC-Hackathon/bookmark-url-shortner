@@ -17,7 +17,7 @@ public class BookMarkUrlIcon {
 
     private String name;
     private String type;
-    private int cardId;
+    private int card_id;
     @Lob
     private byte[] file;
 
@@ -29,6 +29,6 @@ public class BookMarkUrlIcon {
         this.name = originalFilename;
         this.type = contentType;
         this.file = compressBytes;
-        this.cardId = cardId;
+        this.card_id = cardId;
     }
 }

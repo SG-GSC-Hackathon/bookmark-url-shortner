@@ -20,7 +20,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("digital.transformation.bookmarkurlshortner"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -28,7 +28,7 @@ public class SwaggerConfig {
 
     private ApiInfo getApiInfo() {
         return new ApiInfo("Digital Org Swagger Api Documentation",
-                "Rest API for Bookmark Url Shortner",
+                "Rest API for Bookmark BookMarkUrlUrl Shortner",
                 "1.0", "urn:tos",
                 new Contact("Kavana", "", ""),
                 "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", Collections.emptyList());

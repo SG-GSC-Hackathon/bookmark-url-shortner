@@ -4,10 +4,7 @@ import digital.transformation.bookmarkurlshortner.exception.BookMarkUrlDigitalOr
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlCardRequest;
 import digital.transformation.bookmarkurlshortner.model.response.BookMarkUrlCardResponse;
 import digital.transformation.bookmarkurlshortner.model.response.BookMarkUrlIconResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequestMapping("/card")
 @Api(tags = "BookMarkUrlCard Services", description = "BookMarkUrlCard Api")
-@CrossOrigin(origins = {"https://digital-org.herokuapp.com/", "http://localhost:4200"})
+@CrossOrigin(origins = {"https://bookmark-url-shortner.herokuapp.com/", "http://localhost:4200"})
 public interface BookMarkUrlCardApi {
 
     @ApiOperation(value = "Create new card", notes = "BookMarkUrlUser to create new card", response = ResponseEntity.class)
@@ -48,6 +46,10 @@ public interface BookMarkUrlCardApi {
     @ApiResponses(value = {@ApiResponse(code = 204, message = "Deleted", response = ResponseEntity.class),
             @ApiResponse(code = 400, message = "Bad Request")})
     @DeleteMapping(path = "/{card-id}/{email}", produces = "application/json")
-    ResponseEntity deleteCard(@PathVariable("card-id") int cardId, @PathVariable("card-id") String email) throws BookMarkUrlDigitalOrgException;
+    ResponseEntity deleteCard(@PathVariable("card-id") int cardId, @PathVariable("email") String email) throws BookMarkUrlDigitalOrgException;
 
+    @ApiOperation(value = "Get All cards ", notes = "Get all card", response = ResponseEntity.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "ok", response = ResponseEntity.class), @ApiResponse(code = 400, message = "bad request")})
+    @PostMapping(path = "/all", produces = "application/json")
+    public ResponseEntity<List> getAllcard(@RequestBody String email) throws BookMarkUrlDigitalOrgException;
 }

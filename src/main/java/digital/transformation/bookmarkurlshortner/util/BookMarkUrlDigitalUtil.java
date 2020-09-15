@@ -7,7 +7,7 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-public class DigitalUtil {
+public class BookMarkUrlDigitalUtil {
 
     public static boolean isValid(String email)
     {
