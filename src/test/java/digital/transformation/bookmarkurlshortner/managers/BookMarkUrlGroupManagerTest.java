@@ -160,7 +160,7 @@ public class BookMarkUrlGroupManagerTest {
         when(mockUserInGroupRepository.findAllUserInGroupByGroupID(1)).thenReturn(userInGroups);
 
         // Run the test
-        groupManagerUnderTest.removeUserToGroup("user",  1);
+        groupManagerUnderTest.removeUserToGroup("","user",  1);
 
         // Verify the results
         verify(mockUserInGroupRepository).deleteById(0);

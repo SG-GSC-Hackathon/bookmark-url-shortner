@@ -331,10 +331,10 @@ public class BookMarkUrlGroupServiceTest {
         when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        final ResponseEntity result = groupServiceUnderTest.removeUserFromGroup("user",  0);
+        final ResponseEntity result = groupServiceUnderTest.removeUserFromGroup("","user",  0);
 
         // Verify the results
-        verify(mockGroupManager).removeUserToGroup("user", 1);
+        verify(mockGroupManager).removeUserToGroup("","user", 1);
     }
 
     /**
@@ -359,7 +359,7 @@ public class BookMarkUrlGroupServiceTest {
         when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        groupServiceUnderTest.removeUserFromGroup("user", 0);
+        groupServiceUnderTest.removeUserFromGroup("","user", 0);
     }
 
     /**
