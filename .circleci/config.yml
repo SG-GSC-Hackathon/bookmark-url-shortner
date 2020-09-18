@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.0.5
+  maven: circleci/maven@0.0.12
+
+jobs:
+  build:
+    docker:
+      - image: 'circleci/openjdk:latest'
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: mvn clean install
+      - run: mvn test
+      - store_test_results:
+          path: target/surefire-reports
+      - store_artifacts:
+          path: target
+      - codecov/upload:
+          file: './coverage/clover.xml'
+      - run: bash <(curl -s https://codecov.io/bash)
