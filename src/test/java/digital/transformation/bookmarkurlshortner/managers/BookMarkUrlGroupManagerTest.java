@@ -1,15 +1,16 @@
 package digital.transformation.bookmarkurlshortner.managers;
 
+
 import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlGroup;
 import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlUserInGroup;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.response.BookMarkUrlGroupResponse;
 import digital.transformation.bookmarkurlshortner.repository.BookMarkUrlGroupRepository;
 import digital.transformation.bookmarkurlshortner.repository.BookMarkUrlUserInGroupRepository;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.*;
 
@@ -18,6 +19,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+/**
+ * The type Group manager test.
+ */
 public class BookMarkUrlGroupManagerTest {
 
     @Mock
@@ -26,182 +30,166 @@ public class BookMarkUrlGroupManagerTest {
     private BookMarkUrlUserInGroupRepository mockUserInGroupRepository;
 
     @InjectMocks
-    private BookMarkUrlGroupManager bookMarkUrlGroupManagerUnderTest;
+    private BookMarkUrlGroupManager groupManagerUnderTest;
 
-    @Before
+    /**
+     * Sets up.
+     */
+    @BeforeMethod
     public void setUp() {
         initMocks(this);
     }
 
+    /**
+     * Test get group.
+     */
     @Test
     public void testGetGroup() {
         // Setup
 
-        // Configure BookMarkUrlGroupRepository.findById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup1 = new BookMarkUrlGroup();
-        bookMarkUrlGroup1.setId(0);
-        bookMarkUrlGroup1.setName("name");
-        bookMarkUrlGroup1.setDescription("description");
-        bookMarkUrlGroup1.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup1.setCreated_by("created_by");
-        bookMarkUrlGroup1.setTribe("tribe");
-        bookMarkUrlGroup1.setTeam("team");
-        bookMarkUrlGroup1.setComponent("component");
-        bookMarkUrlGroup1.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup1.setUpdated_by("updated_by");
-        final Optional<BookMarkUrlGroup> bookMarkUrlGroup = Optional.of(bookMarkUrlGroup1);
-        when(mockGroupRepository.findById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupRepository.findById(...).
+        final BookMarkUrlGroup group1 = new BookMarkUrlGroup();
+        group1.setId(0);
+        group1.setName("name");
+        group1.setDescription("description");
+        group1.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group1.setCreated_by("created_by");
+        group1.setTribe("tribe");
+        group1.setTeam("team");
+        group1.setComponent("component");
+        group1.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group1.setUpdated_by("updated_by");
+        final Optional<BookMarkUrlGroup> group = Optional.of(group1);
+        when(mockGroupRepository.findById(0)).thenReturn(group);
 
         // Run the test
-        final BookMarkUrlGroup result = bookMarkUrlGroupManagerUnderTest.getGroup(0);
+        final BookMarkUrlGroup result = groupManagerUnderTest.getGroup(0);
 
         // Verify the results
     }
 
-    @Test
-    public void testFindAllActiveGroup() {
-        // Setup
-
-        // Configure BookMarkUrlGroupRepository.findAllActiveGroup(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        final List<BookMarkUrlGroup> bookMarkUrlGroups = Arrays.asList(bookMarkUrlGroup);
-        when(mockGroupRepository.findAllActiveGroup(false)).thenReturn(bookMarkUrlGroups);
-
-        // Run the test
-        final List<BookMarkUrlGroup> result = bookMarkUrlGroupManagerUnderTest.findAllActiveGroup();
-
-        // Verify the results
-    }
-
+    /**
+     * Test create group.
+     */
     @Test
     public void testCreateGroup() {
         // Setup
-        final BookMarkUrlGroupRequest bookMarkUrlGroupRequest = new BookMarkUrlGroupRequest();
-        bookMarkUrlGroupRequest.setName("name");
-        bookMarkUrlGroupRequest.setDescription("description");
-        bookMarkUrlGroupRequest.setCreated_by("created_by");
-        bookMarkUrlGroupRequest.setTribe("tribe");
-        bookMarkUrlGroupRequest.setTeam("team");
-        bookMarkUrlGroupRequest.setComponent("component");
-        bookMarkUrlGroupRequest.setUpdated_by("updated_by");
-        bookMarkUrlGroupRequest.setAdmin(Arrays.asList("value"));
+        final BookMarkUrlGroupRequest groupRequest = new BookMarkUrlGroupRequest();
+        groupRequest.setName("name");
+        groupRequest.setDescription("description");
+        groupRequest.setCreated_by("created_by");
+        groupRequest.setTribe("tribe");
+        groupRequest.setTeam("team");
+        groupRequest.setComponent("component");
+        groupRequest.setUpdated_by("updated_by");
 
-        // Configure BookMarkUrlGroupRepository.save(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockGroupRepository.save(any(BookMarkUrlGroup.class))).thenReturn(bookMarkUrlGroup);
+        // Configure GroupRepository.save(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupRepository.save(any(BookMarkUrlGroup.class))).thenReturn(group);
 
         // Run the test
-        final BookMarkUrlGroupResponse result = bookMarkUrlGroupManagerUnderTest.createGroup(bookMarkUrlGroupRequest);
+        final BookMarkUrlGroupResponse result = groupManagerUnderTest.createGroup(groupRequest);
 
         // Verify the results
     }
 
+    /**
+     * Test get group by id.
+     */
     @Test
     public void testGetGroupById() {
         // Setup
 
-        // Configure BookMarkUrlGroupRepository.findById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup1 = new BookMarkUrlGroup();
-        bookMarkUrlGroup1.setId(0);
-        bookMarkUrlGroup1.setName("name");
-        bookMarkUrlGroup1.setDescription("description");
-        bookMarkUrlGroup1.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup1.setCreated_by("created_by");
-        bookMarkUrlGroup1.setTribe("tribe");
-        bookMarkUrlGroup1.setTeam("team");
-        bookMarkUrlGroup1.setComponent("component");
-        bookMarkUrlGroup1.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup1.setUpdated_by("updated_by");
-        final Optional<BookMarkUrlGroup> bookMarkUrlGroup = Optional.of(bookMarkUrlGroup1);
-        when(mockGroupRepository.findById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupRepository.findById(...).
+        final BookMarkUrlGroup group1 = new BookMarkUrlGroup();
+        group1.setId(0);
+        group1.setName("name");
+        group1.setDescription("description");
+        group1.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group1.setCreated_by("created_by");
+        group1.setTribe("tribe");
+        group1.setTeam("team");
+        group1.setComponent("component");
+        group1.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group1.setUpdated_by("updated_by");
+        final Optional<BookMarkUrlGroup> group = Optional.of(group1);
+        when(mockGroupRepository.findById(0)).thenReturn(group);
 
         // Run the test
-        final BookMarkUrlGroup result = bookMarkUrlGroupManagerUnderTest.getGroupById(0);
+        final BookMarkUrlGroup result = groupManagerUnderTest.getGroupById(0);
 
         // Verify the results
     }
 
-    @Test
-    public void testDeleteGroup() {
-        // Setup
-
-        // Run the test
-        bookMarkUrlGroupManagerUnderTest.deleteGroup(0);
-
-        // Verify the results
-        verify(mockGroupRepository).deleteById(0);
-    }
-
+    /**
+     * Test add user to group.
+     */
     @Test
     public void testAddUserToGroup() {
         // Setup
 
-        // Configure BookMarkUrlUserInGroupRepository.save(...).
-        final BookMarkUrlUserInGroup bookMarkUrlUserInGroup = new BookMarkUrlUserInGroup("user", "groupName", "admin");
-        when(mockUserInGroupRepository.save(any(BookMarkUrlUserInGroup.class))).thenReturn(bookMarkUrlUserInGroup);
+        // Configure UserInGroupRepository.save(...).
+        final BookMarkUrlUserInGroup userInGroup = new BookMarkUrlUserInGroup("user",1, "admin");
+        when(mockUserInGroupRepository.save(any(BookMarkUrlUserInGroup.class))).thenReturn(userInGroup);
 
         // Run the test
-        bookMarkUrlGroupManagerUnderTest.addUserToGroup("user", "groupName", "admin");
+        groupManagerUnderTest.addUserToGroup("user", "groupName", 1);
 
         // Verify the results
     }
 
+    /**
+     * Test remove user to group.
+     */
     @Test
     public void testRemoveUserToGroup() {
         // Setup
 
-        // Configure BookMarkUrlUserInGroupRepository.findAllbyGroup(...).
-        final List<BookMarkUrlUserInGroup> bookMarkUrlUserInGroups = Arrays.asList(new BookMarkUrlUserInGroup("user", "groupName", "admin"));
-        when(mockUserInGroupRepository.findAllbyGroup("groupName")).thenReturn(bookMarkUrlUserInGroups);
+        // Configure UserInGroupRepository.findAllbyGroup(...).
+        final List<BookMarkUrlUserInGroup> userInGroups = Arrays.asList(new BookMarkUrlUserInGroup("user", 1, "admin"));
+        when(mockUserInGroupRepository.findAllUserInGroupByGroupID(1)).thenReturn(userInGroups);
 
         // Run the test
-        bookMarkUrlGroupManagerUnderTest.removeUserToGroup("user", "groupName", "admin");
+        groupManagerUnderTest.removeUserToGroup("user",  1);
 
         // Verify the results
         verify(mockUserInGroupRepository).deleteById(0);
     }
 
+    /**
+     * Test get all group manager.
+     */
     @Test
     public void testGetAllGroupManager() {
         // Setup
 
-        // Configure BookMarkUrlGroupRepository.findAll(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        final List<BookMarkUrlGroup> bookMarkUrlGroups = Arrays.asList(bookMarkUrlGroup);
-        when(mockGroupRepository.findAll()).thenReturn(bookMarkUrlGroups);
+        // Configure GroupRepository.findAll(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        final List<BookMarkUrlGroup> groups = Arrays.asList(group);
+        when(mockGroupRepository.findAll()).thenReturn(groups);
 
         // Run the test
-        final List<BookMarkUrlGroupResponse> result = bookMarkUrlGroupManagerUnderTest.getAllGroupManager("emailId");
+        final List<BookMarkUrlGroupResponse> result = groupManagerUnderTest.getAllGroupManager("emailId");
 
         // Verify the results
     }

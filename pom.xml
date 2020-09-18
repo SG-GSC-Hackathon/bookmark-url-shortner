@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>digital.transformation</groupId>
-	<artifactId>bookmark-url-shortner</artifactId>
+	<artifactId>bookmark-bookMarkUrlUrl-shortner</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bookmark-url-shortner</name>
+	<name>bookmark-bookMarkUrlUrl-shortner</name>
 	<description>Demo project for Spring Boot</description>
 
 	<dependencies>

@@ -1,5 +1,6 @@
 package digital.transformation.bookmarkurlshortner.services;
 
+
 import digital.transformation.bookmarkurlshortner.exception.BookMarkUrlDigitalOrgException;
 import digital.transformation.bookmarkurlshortner.managers.BookMarkUrlCardManager;
 import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlCard;
@@ -7,13 +8,13 @@ import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlIcon;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlCardRequest;
 import digital.transformation.bookmarkurlshortner.model.response.BookMarkUrlCardResponse;
 import digital.transformation.bookmarkurlshortner.model.response.BookMarkUrlIconResponse;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -21,260 +22,297 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+/**
+ * The type Card service test.
+ */
 public class BookMarkUrlCardServiceTest {
 
     @Mock
-    private BookMarkUrlCardManager mockBookMarkUrlCardManager;
+    private BookMarkUrlCardManager mockCardManager;
 
     @InjectMocks
-    private BookMarkUrlCardService bookMarkUrlCardServiceUnderTest;
+    private BookMarkUrlCardService cardServiceUnderTest;
 
-    @Before
+    /**
+     * Sets up.
+     */
+    @BeforeMethod
     public void setUp() {
         initMocks(this);
     }
 
+    /**
+     * Test create card.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testCreateCard() throws Exception {
         // Setup
-        final BookMarkUrlCardRequest bookMarkUrlCardRequest = new BookMarkUrlCardRequest();
-        bookMarkUrlCardRequest.setTitle("title");
-        bookMarkUrlCardRequest.setDescription("description");
-        bookMarkUrlCardRequest.setOriginal_url("original_url");
-        bookMarkUrlCardRequest.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCardRequest.setCreated_by("created_by");
-        bookMarkUrlCardRequest.setTribe("tribe");
-        bookMarkUrlCardRequest.setTeam("team");
-        bookMarkUrlCardRequest.setComponent("component");
-        bookMarkUrlCardRequest.setUpdated_by("updated_by");
-        bookMarkUrlCardRequest.setGroup_name("group_name");
+        final BookMarkUrlCardRequest cardRequest = new BookMarkUrlCardRequest();
+        cardRequest.setTitle("title");
+        cardRequest.setDescription("description");
+        cardRequest.setOriginal_url("original_url");
+        cardRequest.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        cardRequest.setCreated_by("created_by");
+        cardRequest.setTribe("tribe");
+        cardRequest.setTeam("team");
+        cardRequest.setComponent("component");
+        cardRequest.setUpdated_by("updated_by");
 
-        // Configure BookMarkUrlCardManager.createCard(...).
-        final BookMarkUrlCardResponse bookMarkUrlCardResponse = new BookMarkUrlCardResponse();
-        bookMarkUrlCardResponse.setId(0);
-        bookMarkUrlCardResponse.setTitle("title");
-        bookMarkUrlCardResponse.setDescription("description");
-        bookMarkUrlCardResponse.setOriginal_url("original_url");
-        bookMarkUrlCardResponse.setShort_url("short_url");
-        bookMarkUrlCardResponse.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCardResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCardResponse.setCreated_by("created_by");
-        bookMarkUrlCardResponse.setTribe("tribe");
-        bookMarkUrlCardResponse.setTeam("team");
-        when(mockBookMarkUrlCardManager.createCard(any(BookMarkUrlCardRequest.class))).thenReturn(bookMarkUrlCardResponse);
+        // Configure CardManager.createCard(...).
+        final BookMarkUrlCardResponse response = new BookMarkUrlCardResponse();
+        response.setId(0);
+        response.setTitle("title");
+        response.setDescription("description");
+        response.setOriginal_url("original_url");
+        response.setShort_url("short_url");
+        response.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        response.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        response.setCreated_by("created_by");
+        response.setTribe("tribe");
+        response.setTeam("team");
+        when(mockCardManager.createCard(any(BookMarkUrlCardRequest.class))).thenReturn(response);
 
         // Run the test
-        final ResponseEntity<BookMarkUrlCardResponse> result = bookMarkUrlCardServiceUnderTest.createCard(bookMarkUrlCardRequest);
+        final ResponseEntity<BookMarkUrlCardResponse> result = cardServiceUnderTest.createCard(cardRequest);
 
         // Verify the results
     }
 
-    @Test
-    public void testCreateCard_BookMarkUrlCardManagerThrowsIOException() throws Exception {
+    /**
+     * Test create card card manager throws io exception.
+     *
+     * @throws Exception the exception
+     */
+    @Test(expectedExceptions = {IOException.class})
+    public void testCreateCard_CardManagerThrowsIOException() throws Exception {
         // Setup
-        final BookMarkUrlCardRequest bookMarkUrlCardRequest = new BookMarkUrlCardRequest();
-        bookMarkUrlCardRequest.setTitle("title");
-        bookMarkUrlCardRequest.setDescription("description");
-        bookMarkUrlCardRequest.setOriginal_url("original_url");
-        bookMarkUrlCardRequest.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCardRequest.setCreated_by("created_by");
-        bookMarkUrlCardRequest.setTribe("tribe");
-        bookMarkUrlCardRequest.setTeam("team");
-        bookMarkUrlCardRequest.setComponent("component");
-        bookMarkUrlCardRequest.setUpdated_by("updated_by");
-        bookMarkUrlCardRequest.setGroup_name("group_name");
+        final BookMarkUrlCardRequest cardRequest = new BookMarkUrlCardRequest();
+        cardRequest.setTitle("title");
+        cardRequest.setDescription("description");
+        cardRequest.setOriginal_url("original_url");
+        cardRequest.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        cardRequest.setCreated_by("created_by");
+        cardRequest.setTribe("tribe");
+        cardRequest.setTeam("team");
+        cardRequest.setComponent("component");
+        cardRequest.setUpdated_by("updated_by");
 
-        when(mockBookMarkUrlCardManager.createCard(any(BookMarkUrlCardRequest.class))).thenThrow(IOException.class);
+        when(mockCardManager.createCard(any(BookMarkUrlCardRequest.class))).thenThrow(IOException.class);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlCardServiceUnderTest.createCard(bookMarkUrlCardRequest);
-        }).isInstanceOf(IOException.class);
+        cardServiceUnderTest.createCard(cardRequest);
     }
 
+    /**
+     * Test uplaod image.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUplaodImage() throws Exception {
         // Setup
         final MultipartFile file = null;
 
         // Run the test
-        final ResponseEntity result = bookMarkUrlCardServiceUnderTest.uplaodImage(0, file);
+        final ResponseEntity result = cardServiceUnderTest.uplaodImage(0, file);
 
         // Verify the results
-        verify(mockBookMarkUrlCardManager).uplaodImage(any(BookMarkUrlIcon.class));
+        verify(mockCardManager).uplaodImage(any(BookMarkUrlIcon.class));
     }
 
-    @Test
-    public void testUplaodImage_ThrowsIOException() {
+    /**
+     * Test uplaod image throws io exception.
+     *
+     * @throws Exception the exception
+     */
+    @Test(expectedExceptions = {IOException.class})
+    public void testUplaodImage_ThrowsIOException() throws Exception {
         // Setup
         final MultipartFile file = null;
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlCardServiceUnderTest.uplaodImage(0, file);
-        }).isInstanceOf(IOException.class);
-        verify(mockBookMarkUrlCardManager).uplaodImage(any(BookMarkUrlIcon.class));
+        cardServiceUnderTest.uplaodImage(0, file);
     }
 
+    /**
+     * Test download image.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testDownloadImage() throws Exception {
         // Setup
 
-        // Configure BookMarkUrlCardManager.downloadImage(...).
-        final BookMarkUrlIcon bookMarkUrlIcon = new BookMarkUrlIcon("originalFilename", "contentType", "content".getBytes(), 0);
-        when(mockBookMarkUrlCardManager.downloadImage(0)).thenReturn(bookMarkUrlIcon);
+        // Configure CardManager.downloadImage(...).
+        final BookMarkUrlIcon icon = new BookMarkUrlIcon("originalFilename", "contentType", 0, "content".getBytes());
+        when(mockCardManager.downloadImage(0)).thenReturn(icon);
 
         // Run the test
-        final ResponseEntity<BookMarkUrlIconResponse> result = bookMarkUrlCardServiceUnderTest.downloadImage(0);
+        final ResponseEntity<BookMarkUrlIconResponse> result = cardServiceUnderTest.downloadImage(0);
 
         // Verify the results
     }
 
-    @Test
-    public void testDownloadImage_ThrowsIOException() {
+    /**
+     * Test download image throws io exception.
+     *
+     * @throws Exception the exception
+     */
+    @Test(expectedExceptions = {IOException.class})
+    public void testDownloadImage_ThrowsIOException() throws Exception {
         // Setup
 
-        // Configure BookMarkUrlCardManager.downloadImage(...).
-        final BookMarkUrlIcon bookMarkUrlIcon = new BookMarkUrlIcon("originalFilename", "contentType", "content".getBytes(), 0);
-        when(mockBookMarkUrlCardManager.downloadImage(0)).thenReturn(bookMarkUrlIcon);
+        // Configure CardManager.downloadImage(...).
+        final BookMarkUrlIcon icon = new BookMarkUrlIcon("originalFilename", "contentType", 0, "content".getBytes());
+        when(mockCardManager.downloadImage(0)).thenReturn(icon);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlCardServiceUnderTest.downloadImage(0);
-        }).isInstanceOf(IOException.class);
+        cardServiceUnderTest.downloadImage(0);
     }
 
+    /**
+     * Test download imageocta.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testDownloadImageocta() throws Exception {
         // Setup
 
-        // Configure BookMarkUrlCardManager.downloadImage(...).
-        final BookMarkUrlIcon bookMarkUrlIcon = new BookMarkUrlIcon("originalFilename", "contentType", "content".getBytes(), 0);
-        when(mockBookMarkUrlCardManager.downloadImage(0)).thenReturn(bookMarkUrlIcon);
+        // Configure CardManager.downloadImage(...).
+        final BookMarkUrlIcon icon = new BookMarkUrlIcon("originalFilename", "contentType", 0, "content".getBytes());
+        when(mockCardManager.downloadImage(0)).thenReturn(icon);
 
         // Run the test
-        final ResponseEntity<Resource> result = bookMarkUrlCardServiceUnderTest.downloadImageocta(0);
+        final ResponseEntity<Resource> result = cardServiceUnderTest.downloadImageocta(0);
 
         // Verify the results
     }
 
-    @Test
-    public void testDownloadImageocta_ThrowsIOException() {
+    /**
+     * Test download imageocta throws io exception.
+     *
+     * @throws Exception the exception
+     */
+    @Test(expectedExceptions = {IOException.class})
+    public void testDownloadImageocta_ThrowsIOException() throws Exception {
         // Setup
 
-        // Configure BookMarkUrlCardManager.downloadImage(...).
-        final BookMarkUrlIcon bookMarkUrlIcon = new BookMarkUrlIcon("originalFilename", "contentType", "content".getBytes(), 0);
-        when(mockBookMarkUrlCardManager.downloadImage(0)).thenReturn(bookMarkUrlIcon);
+        // Configure CardManager.downloadImage(...).
+        final BookMarkUrlIcon icon = new BookMarkUrlIcon("originalFilename", "contentType", 0, "content".getBytes());
+        when(mockCardManager.downloadImage(0)).thenReturn(icon);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlCardServiceUnderTest.downloadImageocta(0);
-        }).isInstanceOf(IOException.class);
+        cardServiceUnderTest.downloadImageocta(0);
     }
 
+    /**
+     * Test delete card.
+     */
     @Test
     public void testDeleteCard() {
         // Setup
 
-        // Configure BookMarkUrlCardManager.getCardById(...).
-        final BookMarkUrlCard bookMarkUrlCard = new BookMarkUrlCard();
-        bookMarkUrlCard.setId(0);
-        bookMarkUrlCard.setTitle("title");
-        bookMarkUrlCard.setDescription("description");
-        bookMarkUrlCard.setOriginal_url("original_url");
-        bookMarkUrlCard.setShort_url("short_url");
-        bookMarkUrlCard.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCard.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCard.setCreated_by("created_by");
-        bookMarkUrlCard.setTribe("tribe");
-        bookMarkUrlCard.setTeam("team");
-        when(mockBookMarkUrlCardManager.getCardById(0)).thenReturn(bookMarkUrlCard);
+        // Configure CardManager.getCardById(...).
+        final BookMarkUrlCard card = new BookMarkUrlCard();
+        card.setId(0);
+        card.setTitle("title");
+        card.setDescription("description");
+        card.setUrl_id(12);
+        card.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        card.setCreated_by("created_by");
+        card.setTribe("tribe");
+        card.setTeam("team");
+        when(mockCardManager.getCardById(0)).thenReturn(card);
 
         // Run the test
-        final ResponseEntity result = bookMarkUrlCardServiceUnderTest.deleteCard(0, "email");
+        final ResponseEntity result = cardServiceUnderTest.deleteCard(0, "email");
 
         // Verify the results
-        verify(mockBookMarkUrlCardManager).deleteCard(0);
+        verify(mockCardManager).deleteCard(card, "email@emil.com");
     }
 
-    @Test
-    public void testDeleteCard_ThrowsBookMarkUrlDigitalOrgException() {
+    /**
+     * Test delete card throws digital org exception.
+     */
+    @Test(expectedExceptions = {BookMarkUrlDigitalOrgException.class})
+    public void testDeleteCard_ThrowsDigitalOrgException() {
         // Setup
 
-        // Configure BookMarkUrlCardManager.getCardById(...).
-        final BookMarkUrlCard bookMarkUrlCard = new BookMarkUrlCard();
-        bookMarkUrlCard.setId(0);
-        bookMarkUrlCard.setTitle("title");
-        bookMarkUrlCard.setDescription("description");
-        bookMarkUrlCard.setOriginal_url("original_url");
-        bookMarkUrlCard.setShort_url("short_url");
-        bookMarkUrlCard.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCard.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCard.setCreated_by("created_by");
-        bookMarkUrlCard.setTribe("tribe");
-        bookMarkUrlCard.setTeam("team");
-        when(mockBookMarkUrlCardManager.getCardById(0)).thenReturn(bookMarkUrlCard);
+        // Configure CardManager.getCardById(...).
+        final BookMarkUrlCard card = new BookMarkUrlCard();
+        card.setId(0);
+        card.setTitle("title");
+        card.setDescription("description");
+        card.setUrl_id(12);
+        card.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        card.setCreated_by("created_by");
+        card.setTribe("tribe");
+        card.setTeam("team");
+        when(mockCardManager.getCardById(0)).thenReturn(card);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlCardServiceUnderTest.deleteCard(0, "email");
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
-        verify(mockBookMarkUrlCardManager).deleteCard(0);
+        cardServiceUnderTest.deleteCard(0, "email");
     }
 
+    /**
+     * Test get allcard.
+     */
     @Test
     public void testGetAllcard() {
         // Setup
 
-        // Configure BookMarkUrlCardManager.getAllCard(...).
-        final BookMarkUrlCardResponse bookMarkUrlCardResponse = new BookMarkUrlCardResponse();
-        bookMarkUrlCardResponse.setId(0);
-        bookMarkUrlCardResponse.setTitle("title");
-        bookMarkUrlCardResponse.setDescription("description");
-        bookMarkUrlCardResponse.setOriginal_url("original_url");
-        bookMarkUrlCardResponse.setShort_url("short_url");
-        bookMarkUrlCardResponse.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCardResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCardResponse.setCreated_by("created_by");
-        bookMarkUrlCardResponse.setTribe("tribe");
-        bookMarkUrlCardResponse.setTeam("team");
-        final List<BookMarkUrlCardResponse> bookMarkUrlCardResponses = Arrays.asList(bookMarkUrlCardResponse);
-        when(mockBookMarkUrlCardManager.getAllCard("emailId")).thenReturn(bookMarkUrlCardResponses);
+        // Configure CardManager.getAllCard(...).
+        final BookMarkUrlCardResponse response = new BookMarkUrlCardResponse();
+        response.setId(0);
+        response.setTitle("title");
+        response.setDescription("description");
+        response.setOriginal_url("original_url");
+        response.setShort_url("short_url");
+        response.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        response.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        response.setCreated_by("created_by");
+        response.setTribe("tribe");
+        response.setTeam("team");
+        final List<BookMarkUrlCardResponse> cardResponses = Arrays.asList(response);
+        when(mockCardManager.getAllCard("emailId")).thenReturn(cardResponses);
 
         // Run the test
-        final ResponseEntity<List> result = bookMarkUrlCardServiceUnderTest.getAllcard("email");
+        final ResponseEntity<List> result = cardServiceUnderTest.getAllcard("email");
 
         // Verify the results
     }
 
-    @Test
-    public void testGetAllcard_ThrowsBookMarkUrlDigitalOrgException() {
+    /**
+     * Test get allcard throws digital org exception.
+     */
+    @Test(expectedExceptions = {BookMarkUrlDigitalOrgException.class})
+    public void testGetAllcard_ThrowsDigitalOrgException() {
         // Setup
 
-        // Configure BookMarkUrlCardManager.getAllCard(...).
-        final BookMarkUrlCardResponse bookMarkUrlCardResponse = new BookMarkUrlCardResponse();
-        bookMarkUrlCardResponse.setId(0);
-        bookMarkUrlCardResponse.setTitle("title");
-        bookMarkUrlCardResponse.setDescription("description");
-        bookMarkUrlCardResponse.setOriginal_url("original_url");
-        bookMarkUrlCardResponse.setShort_url("short_url");
-        bookMarkUrlCardResponse.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCardResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlCardResponse.setCreated_by("created_by");
-        bookMarkUrlCardResponse.setTribe("tribe");
-        bookMarkUrlCardResponse.setTeam("team");
-        final List<BookMarkUrlCardResponse> bookMarkUrlCardResponses = Arrays.asList(bookMarkUrlCardResponse);
-        when(mockBookMarkUrlCardManager.getAllCard("emailId")).thenReturn(bookMarkUrlCardResponses);
+        // Configure CardManager.getAllCard(...).
+        final BookMarkUrlCardResponse response = new BookMarkUrlCardResponse();
+        response.setId(0);
+        response.setTitle("title");
+        response.setDescription("description");
+        response.setOriginal_url("original_url");
+        response.setShort_url("short_url");
+        response.setExpire_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        response.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        response.setCreated_by("created_by");
+        response.setTribe("tribe");
+        response.setTeam("team");
+        final List<BookMarkUrlCardResponse> cardResponses = Arrays.asList(response);
+        when(mockCardManager.getAllCard("emailId")).thenReturn(cardResponses);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlCardServiceUnderTest.getAllcard("email");
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
+        cardServiceUnderTest.getAllcard("email");
     }
 }

@@ -1,38 +1,50 @@
 package digital.transformation.bookmarkurlshortner.util;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.testng.Assert.assertEquals;
 
+/**
+ * The type Base conversion test.
+ */
 public class BookMarkUrlBaseConversionTest {
 
-    private BookMarkUrlBaseConversion bookMarkUrlBaseConversionUnderTest;
+    private BookMarkUrlBaseConversion baseConversionUnderTest;
 
-    @Before
+    /**
+     * Sets up.
+     */
+    @BeforeMethod
     public void setUp() {
-        bookMarkUrlBaseConversionUnderTest = new BookMarkUrlBaseConversion();
+        baseConversionUnderTest = new BookMarkUrlBaseConversion();
     }
 
+    /**
+     * Test encode.
+     */
     @Test
     public void testEncode() {
         // Setup
 
         // Run the test
-        final String result = bookMarkUrlBaseConversionUnderTest.encode(0L);
+        final String result = baseConversionUnderTest.encode(0L);
 
         // Verify the results
-        assertThat(result).isEqualTo("result");
+        assertEquals("result", result);
     }
 
+    /**
+     * Test decode.
+     */
     @Test
     public void testDecode() {
         // Setup
 
         // Run the test
-        final long result = bookMarkUrlBaseConversionUnderTest.decode("input");
+        final long result = baseConversionUnderTest.decode("input");
 
         // Verify the results
-        assertThat(result).isEqualTo(0L);
+        assertEquals(0L, result);
     }
 }

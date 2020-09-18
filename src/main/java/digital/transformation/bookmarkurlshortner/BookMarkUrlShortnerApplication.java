@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-@EnableJpaRepositories(basePackages = "digital.transformation.bookmarkurlshortner")
+@EnableJpaRepositories(basePackages = "digital.transformation.bookmarkurlshortner.repository")
 public class BookMarkUrlShortnerApplication {
 
     public static void main(String[] args) {

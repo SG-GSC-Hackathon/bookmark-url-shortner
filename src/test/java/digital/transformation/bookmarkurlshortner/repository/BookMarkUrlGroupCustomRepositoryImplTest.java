@@ -1,8 +1,10 @@
 package digital.transformation.bookmarkurlshortner.repository;
 
+
+import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlCardInGroup;
 import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlGroup;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -10,23 +12,46 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * The type Group custom repository impl test.
+ */
 public class BookMarkUrlGroupCustomRepositoryImplTest {
 
-    private BookMarkUrlGroupCustomRepositoryImpl bookMarkUrlGroupCustomRepositoryImplUnderTest;
+    private BookMarkUrlGroupCustomRepositoryImpl groupCustomRepositoryImplUnderTest;
 
-    @Before
+    /**
+     * Sets up.
+     */
+    @BeforeMethod
     public void setUp() {
-        bookMarkUrlGroupCustomRepositoryImplUnderTest = new BookMarkUrlGroupCustomRepositoryImpl();
-        bookMarkUrlGroupCustomRepositoryImplUnderTest.entityManager = mock(EntityManager.class);
+        groupCustomRepositoryImplUnderTest = new BookMarkUrlGroupCustomRepositoryImpl();
+        groupCustomRepositoryImplUnderTest.entityManager = mock(EntityManager.class);
     }
 
+    /**
+     * Test find all active group.
+     */
     @Test
     public void testFindAllActiveGroup() {
         // Setup
-        when(bookMarkUrlGroupCustomRepositoryImplUnderTest.entityManager.createNativeQuery("s", BookMarkUrlGroup.class)).thenReturn(null);
+        when(groupCustomRepositoryImplUnderTest.entityManager.createNativeQuery("s", BookMarkUrlGroup.class)).thenReturn(null);
 
         // Run the test
-        final List<BookMarkUrlGroup> result = bookMarkUrlGroupCustomRepositoryImplUnderTest.findAllActiveGroup(false);
+        final List<BookMarkUrlGroup> result = groupCustomRepositoryImplUnderTest.findAllActiveGroup(false);
+
+        // Verify the results
+    }
+
+    /**
+     * Test remove card from group.
+     */
+    @Test
+    public void testRemoveCardFromGroup() {
+        // Setup
+        when(groupCustomRepositoryImplUnderTest.entityManager.createNativeQuery("s", BookMarkUrlCardInGroup.class)).thenReturn(null);
+
+        // Run the test
+        groupCustomRepositoryImplUnderTest.removeCardFromGroup(0);
 
         // Verify the results
     }

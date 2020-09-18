@@ -1,417 +1,418 @@
 package digital.transformation.bookmarkurlshortner.services;
 
+
 import digital.transformation.bookmarkurlshortner.exception.BookMarkUrlDigitalOrgException;
 import digital.transformation.bookmarkurlshortner.managers.BookMarkUrlGroupManager;
 import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlGroup;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupRequest;
+import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupUpdateRequest;
 import digital.transformation.bookmarkurlshortner.model.response.BookMarkUrlGroupResponse;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+/**
+ * The type Group service test.
+ */
 public class BookMarkUrlGroupServiceTest {
 
     @Mock
-    private BookMarkUrlGroupManager mockBookMarkUrlGroupManager;
+    private BookMarkUrlGroupManager mockGroupManager;
 
     @InjectMocks
-    private BookMarkUrlGroupService bookMarkUrlGroupServiceUnderTest;
+    private BookMarkUrlGroupService groupServiceUnderTest;
 
-    @Before
+    /**
+     * Sets up.
+     */
+    @BeforeMethod
     public void setUp() {
         initMocks(this);
     }
 
+    /**
+     * Test create group.
+     */
     @Test
     public void testCreateGroup() {
         // Setup
-        final BookMarkUrlGroupRequest bookMarkUrlGroupRequest = new BookMarkUrlGroupRequest();
-        bookMarkUrlGroupRequest.setName("name");
-        bookMarkUrlGroupRequest.setDescription("description");
-        bookMarkUrlGroupRequest.setCreated_by("created_by");
-        bookMarkUrlGroupRequest.setTribe("tribe");
-        bookMarkUrlGroupRequest.setTeam("team");
-        bookMarkUrlGroupRequest.setComponent("component");
-        bookMarkUrlGroupRequest.setUpdated_by("updated_by");
-        bookMarkUrlGroupRequest.setAdmin(Arrays.asList("value"));
+        final BookMarkUrlGroupRequest groupRequest = new BookMarkUrlGroupRequest();
+        groupRequest.setName("name");
+        groupRequest.setDescription("description");
+        groupRequest.setCreated_by("created_by");
+        groupRequest.setTribe("tribe");
+        groupRequest.setTeam("team");
+        groupRequest.setComponent("component");
+        groupRequest.setUpdated_by("updated_by");
 
-        // Configure BookMarkUrlGroupManager.createGroup(...).
-        final BookMarkUrlGroupResponse bookMarkUrlGroupResponse = new BookMarkUrlGroupResponse();
-        bookMarkUrlGroupResponse.setId(0);
-        bookMarkUrlGroupResponse.setName("name");
-        bookMarkUrlGroupResponse.setDescription("description");
-        bookMarkUrlGroupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setCreated_by("created_by");
-        bookMarkUrlGroupResponse.setTribe("tribe");
-        bookMarkUrlGroupResponse.setTeam("team");
-        bookMarkUrlGroupResponse.setComponent("component");
-        bookMarkUrlGroupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.createGroup(any(BookMarkUrlGroupRequest.class))).thenReturn(bookMarkUrlGroupResponse);
+        // Configure GroupManager.createGroup(...).
+        final BookMarkUrlGroupResponse groupResponse = new BookMarkUrlGroupResponse();
+        groupResponse.setId(0);
+        groupResponse.setName("name");
+        groupResponse.setDescription("description");
+        groupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setCreated_by("created_by");
+        groupResponse.setTribe("tribe");
+        groupResponse.setTeam("team");
+        groupResponse.setComponent("component");
+        groupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setUpdated_by("updated_by");
+        when(mockGroupManager.createGroup(any(BookMarkUrlGroupRequest.class))).thenReturn(groupResponse);
 
         // Run the test
-        final ResponseEntity result = bookMarkUrlGroupServiceUnderTest.createGroup(bookMarkUrlGroupRequest);
+        final ResponseEntity result = groupServiceUnderTest.createGroup(groupRequest);
 
         // Verify the results
     }
 
-    @Test
-    public void testCreateGroup_ThrowsBookMarkUrlDigitalOrgException() {
+    /**
+     * Test create group throws digital org exception.
+     */
+    @Test(expectedExceptions = {BookMarkUrlDigitalOrgException.class})
+    public void testCreateGroup_ThrowsDigitalOrgException() {
         // Setup
-        final BookMarkUrlGroupRequest bookMarkUrlGroupRequest = new BookMarkUrlGroupRequest();
-        bookMarkUrlGroupRequest.setName("name");
-        bookMarkUrlGroupRequest.setDescription("description");
-        bookMarkUrlGroupRequest.setCreated_by("created_by");
-        bookMarkUrlGroupRequest.setTribe("tribe");
-        bookMarkUrlGroupRequest.setTeam("team");
-        bookMarkUrlGroupRequest.setComponent("component");
-        bookMarkUrlGroupRequest.setUpdated_by("updated_by");
-        bookMarkUrlGroupRequest.setAdmin(Arrays.asList("value"));
+        final BookMarkUrlGroupRequest groupRequest = new BookMarkUrlGroupRequest();
+        groupRequest.setName("name");
+        groupRequest.setDescription("description");
+        groupRequest.setCreated_by("created_by");
+        groupRequest.setTribe("tribe");
+        groupRequest.setTeam("team");
+        groupRequest.setComponent("component");
+        groupRequest.setUpdated_by("updated_by");
 
-        // Configure BookMarkUrlGroupManager.createGroup(...).
-        final BookMarkUrlGroupResponse bookMarkUrlGroupResponse = new BookMarkUrlGroupResponse();
-        bookMarkUrlGroupResponse.setId(0);
-        bookMarkUrlGroupResponse.setName("name");
-        bookMarkUrlGroupResponse.setDescription("description");
-        bookMarkUrlGroupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setCreated_by("created_by");
-        bookMarkUrlGroupResponse.setTribe("tribe");
-        bookMarkUrlGroupResponse.setTeam("team");
-        bookMarkUrlGroupResponse.setComponent("component");
-        bookMarkUrlGroupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.createGroup(any(BookMarkUrlGroupRequest.class))).thenReturn(bookMarkUrlGroupResponse);
+        // Configure GroupManager.createGroup(...).
+        final BookMarkUrlGroupResponse groupResponse = new BookMarkUrlGroupResponse();
+        groupResponse.setId(0);
+        groupResponse.setName("name");
+        groupResponse.setDescription("description");
+        groupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setCreated_by("created_by");
+        groupResponse.setTribe("tribe");
+        groupResponse.setTeam("team");
+        groupResponse.setComponent("component");
+        groupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setUpdated_by("updated_by");
+        when(mockGroupManager.createGroup(any(BookMarkUrlGroupRequest.class))).thenReturn(groupResponse);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlGroupServiceUnderTest.createGroup(bookMarkUrlGroupRequest);
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
+        groupServiceUnderTest.createGroup(groupRequest);
     }
 
+    /**
+     * Test get groupby id.
+     */
     @Test
     public void testGetGroupbyId() {
         // Setup
 
-        // Configure BookMarkUrlGroupManager.getGroupById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.getGroupById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupManager.getGroupById(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        final BookMarkUrlGroup result = bookMarkUrlGroupServiceUnderTest.getGroupbyId(0);
+        final BookMarkUrlGroup result = groupServiceUnderTest.getGroupbyId(0);
 
         // Verify the results
     }
 
-    @Test
-    public void testGetGroupbyId_ThrowsBookMarkUrlDigitalOrgException() {
+    /**
+     * Test get groupby id throws digital org exception.
+     */
+    @Test(expectedExceptions = {BookMarkUrlDigitalOrgException.class})
+    public void testGetGroupbyId_ThrowsDigitalOrgException() {
         // Setup
 
-        // Configure BookMarkUrlGroupManager.getGroupById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.getGroupById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupManager.getGroupById(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlGroupServiceUnderTest.getGroupbyId(0);
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
+        groupServiceUnderTest.getGroupbyId(0);
     }
 
+    /**
+     * Test update group.
+     */
     @Test
     public void testUpdateGroup() {
         // Setup
-        final BookMarkUrlGroupRequest bookMarkUrlGroupRequest = new BookMarkUrlGroupRequest();
-        bookMarkUrlGroupRequest.setName("name");
-        bookMarkUrlGroupRequest.setDescription("description");
-        bookMarkUrlGroupRequest.setCreated_by("created_by");
-        bookMarkUrlGroupRequest.setTribe("tribe");
-        bookMarkUrlGroupRequest.setTeam("team");
-        bookMarkUrlGroupRequest.setComponent("component");
-        bookMarkUrlGroupRequest.setUpdated_by("updated_by");
-        bookMarkUrlGroupRequest.setAdmin(Arrays.asList("value"));
+        final BookMarkUrlGroupUpdateRequest groupRequest = new BookMarkUrlGroupUpdateRequest();
+        groupRequest.setName("name");
+        groupRequest.setDescription("description");
+        groupRequest.setTribe("tribe");
+        groupRequest.setTeam("team");
+        groupRequest.setComponent("component");
+        groupRequest.setUpdated_by("updated_by");
 
-        // Configure BookMarkUrlGroupManager.getGroupById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.getGroupById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupManager.getGroupById(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
-        // Configure BookMarkUrlGroupManager.createGroup(...).
-        final BookMarkUrlGroupResponse bookMarkUrlGroupResponse = new BookMarkUrlGroupResponse();
-        bookMarkUrlGroupResponse.setId(0);
-        bookMarkUrlGroupResponse.setName("name");
-        bookMarkUrlGroupResponse.setDescription("description");
-        bookMarkUrlGroupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setCreated_by("created_by");
-        bookMarkUrlGroupResponse.setTribe("tribe");
-        bookMarkUrlGroupResponse.setTeam("team");
-        bookMarkUrlGroupResponse.setComponent("component");
-        bookMarkUrlGroupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.createGroup(any(BookMarkUrlGroupRequest.class))).thenReturn(bookMarkUrlGroupResponse);
+        // Configure GroupManager.createGroup(...).
+        final BookMarkUrlGroupResponse groupResponse = new BookMarkUrlGroupResponse();
+        groupResponse.setId(0);
+        groupResponse.setName("name");
+        groupResponse.setDescription("description");
+        groupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setCreated_by("created_by");
+        groupResponse.setTribe("tribe");
+        groupResponse.setTeam("team");
+        groupResponse.setComponent("component");
+        groupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setUpdated_by("updated_by");
+        when(mockGroupManager.createGroup(any(BookMarkUrlGroupRequest.class))).thenReturn(groupResponse);
 
         // Run the test
-        final ResponseEntity result = bookMarkUrlGroupServiceUnderTest.updateGroup(bookMarkUrlGroupRequest, 0);
+        final ResponseEntity result = groupServiceUnderTest.updateGroup(groupRequest);
 
         // Verify the results
     }
 
-    @Test
-    public void testUpdateGroup_ThrowsBookMarkUrlDigitalOrgException() {
+    /**
+     * Test update group throws digital org exception.
+     */
+    @Test(expectedExceptions = {BookMarkUrlDigitalOrgException.class})
+    public void testUpdateGroup_ThrowsDigitalOrgException() {
         // Setup
-        final BookMarkUrlGroupRequest bookMarkUrlGroupRequest = new BookMarkUrlGroupRequest();
-        bookMarkUrlGroupRequest.setName("name");
-        bookMarkUrlGroupRequest.setDescription("description");
-        bookMarkUrlGroupRequest.setCreated_by("created_by");
-        bookMarkUrlGroupRequest.setTribe("tribe");
-        bookMarkUrlGroupRequest.setTeam("team");
-        bookMarkUrlGroupRequest.setComponent("component");
-        bookMarkUrlGroupRequest.setUpdated_by("updated_by");
-        bookMarkUrlGroupRequest.setAdmin(Arrays.asList("value"));
+        final BookMarkUrlGroupUpdateRequest groupRequest = new BookMarkUrlGroupUpdateRequest();
+        groupRequest.setName("name");
+        groupRequest.setDescription("description");
+        groupRequest.setTribe("tribe");
+        groupRequest.setTeam("team");
+        groupRequest.setComponent("component");
+        groupRequest.setUpdated_by("updated_by");
 
-        // Configure BookMarkUrlGroupManager.getGroupById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.getGroupById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupManager.getGroupById(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
-        // Configure BookMarkUrlGroupManager.createGroup(...).
-        final BookMarkUrlGroupResponse bookMarkUrlGroupResponse = new BookMarkUrlGroupResponse();
-        bookMarkUrlGroupResponse.setId(0);
-        bookMarkUrlGroupResponse.setName("name");
-        bookMarkUrlGroupResponse.setDescription("description");
-        bookMarkUrlGroupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setCreated_by("created_by");
-        bookMarkUrlGroupResponse.setTribe("tribe");
-        bookMarkUrlGroupResponse.setTeam("team");
-        bookMarkUrlGroupResponse.setComponent("component");
-        bookMarkUrlGroupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.createGroup(any(BookMarkUrlGroupRequest.class))).thenReturn(bookMarkUrlGroupResponse);
+        // Configure GroupManager.createGroup(...).
+        final BookMarkUrlGroupResponse groupResponse = new BookMarkUrlGroupResponse();
+        groupResponse.setId(0);
+        groupResponse.setName("name");
+        groupResponse.setDescription("description");
+        groupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setCreated_by("created_by");
+        groupResponse.setTribe("tribe");
+        groupResponse.setTeam("team");
+        groupResponse.setComponent("component");
+        groupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setUpdated_by("updated_by");
+        when(mockGroupManager.createGroup(any(BookMarkUrlGroupRequest.class))).thenReturn(groupResponse);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlGroupServiceUnderTest.updateGroup(bookMarkUrlGroupRequest, 0);
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
+        groupServiceUnderTest.updateGroup(groupRequest);
     }
 
-    @Test
-    public void testDeleteGroup() {
-        // Setup
-
-        // Run the test
-        bookMarkUrlGroupServiceUnderTest.deleteGroup(0);
-
-        // Verify the results
-        verify(mockBookMarkUrlGroupManager).deleteGroup(0);
-    }
-
-    @Test
-    public void testDeleteGroup_ThrowsBookMarkUrlDigitalOrgException() {
-        // Setup
-
-        // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlGroupServiceUnderTest.deleteGroup(0);
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
-        verify(mockBookMarkUrlGroupManager).deleteGroup(0);
-    }
-
+    /**
+     * Test add user to group.
+     */
     @Test
     public void testAddUserToGroup() {
         // Setup
 
-        // Configure BookMarkUrlGroupManager.getGroupById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.getGroupById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupManager.getGroupById(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        final ResponseEntity result = bookMarkUrlGroupServiceUnderTest.addUserToGroup("user", "admin", 0);
+        final ResponseEntity result = groupServiceUnderTest.addUserToGroup("user", "admin", 0);
 
         // Verify the results
-        verify(mockBookMarkUrlGroupManager).addUserToGroup("user", "groupName", "admin");
+        verify(mockGroupManager).addUserToGroup("user", "groupName", 1);
     }
 
-    @Test
-    public void testAddUserToGroup_ThrowsBookMarkUrlDigitalOrgException() {
+    /**
+     * Test add user to group throws digital org exception.
+     */
+    @Test(expectedExceptions = {BookMarkUrlDigitalOrgException.class})
+    public void testAddUserToGroup_ThrowsDigitalOrgException() {
         // Setup
 
-        // Configure BookMarkUrlGroupManager.getGroupById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.getGroupById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupManager.getGroupById(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlGroupServiceUnderTest.addUserToGroup("user", "admin", 0);
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
-        verify(mockBookMarkUrlGroupManager).addUserToGroup("user", "groupName", "admin");
+        groupServiceUnderTest.addUserToGroup("user", "admin", 0);
     }
 
+    /**
+     * Test remove user from group.
+     */
     @Test
     public void testRemoveUserFromGroup() {
         // Setup
 
-        // Configure BookMarkUrlGroupManager.getGroupById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.getGroupById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupManager.getGroupById(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        final ResponseEntity result = bookMarkUrlGroupServiceUnderTest.removeUserFromGroup("user", "admin", 0);
+        final ResponseEntity result = groupServiceUnderTest.removeUserFromGroup("user",  0);
 
         // Verify the results
-        verify(mockBookMarkUrlGroupManager).removeUserToGroup("user", "groupName", "admin");
+        verify(mockGroupManager).removeUserToGroup("user", 1);
     }
 
-    @Test
-    public void testRemoveUserFromGroup_ThrowsBookMarkUrlDigitalOrgException() {
+    /**
+     * Test remove user from group throws digital org exception.
+     */
+    @Test(expectedExceptions = {BookMarkUrlDigitalOrgException.class})
+    public void testRemoveUserFromGroup_ThrowsDigitalOrgException() {
         // Setup
 
-        // Configure BookMarkUrlGroupManager.getGroupById(...).
-        final BookMarkUrlGroup bookMarkUrlGroup = new BookMarkUrlGroup();
-        bookMarkUrlGroup.setId(0);
-        bookMarkUrlGroup.setName("name");
-        bookMarkUrlGroup.setDescription("description");
-        bookMarkUrlGroup.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setCreated_by("created_by");
-        bookMarkUrlGroup.setTribe("tribe");
-        bookMarkUrlGroup.setTeam("team");
-        bookMarkUrlGroup.setComponent("component");
-        bookMarkUrlGroup.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroup.setUpdated_by("updated_by");
-        when(mockBookMarkUrlGroupManager.getGroupById(0)).thenReturn(bookMarkUrlGroup);
+        // Configure GroupManager.getGroupById(...).
+        final BookMarkUrlGroup group = new BookMarkUrlGroup();
+        group.setId(0);
+        group.setName("name");
+        group.setDescription("description");
+        group.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setCreated_by("created_by");
+        group.setTribe("tribe");
+        group.setTeam("team");
+        group.setComponent("component");
+        group.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        group.setUpdated_by("updated_by");
+        when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlGroupServiceUnderTest.removeUserFromGroup("user", "admin", 0);
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
-        verify(mockBookMarkUrlGroupManager).removeUserToGroup("user", "groupName", "admin");
+        groupServiceUnderTest.removeUserFromGroup("user", 0);
     }
 
+    /**
+     * Test get all group service.
+     */
     @Test
     public void testGetAllGroupService() {
         // Setup
 
-        // Configure BookMarkUrlGroupManager.getAllGroupManager(...).
-        final BookMarkUrlGroupResponse bookMarkUrlGroupResponse = new BookMarkUrlGroupResponse();
-        bookMarkUrlGroupResponse.setId(0);
-        bookMarkUrlGroupResponse.setName("name");
-        bookMarkUrlGroupResponse.setDescription("description");
-        bookMarkUrlGroupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setCreated_by("created_by");
-        bookMarkUrlGroupResponse.setTribe("tribe");
-        bookMarkUrlGroupResponse.setTeam("team");
-        bookMarkUrlGroupResponse.setComponent("component");
-        bookMarkUrlGroupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setUpdated_by("updated_by");
-        final List<BookMarkUrlGroupResponse> bookMarkUrlGroupResponses = Arrays.asList(bookMarkUrlGroupResponse);
-        when(mockBookMarkUrlGroupManager.getAllGroupManager("emailId")).thenReturn(bookMarkUrlGroupResponses);
+        // Configure GroupManager.getAllGroupManager(...).
+        final BookMarkUrlGroupResponse groupResponse = new BookMarkUrlGroupResponse();
+        groupResponse.setId(0);
+        groupResponse.setName("name");
+        groupResponse.setDescription("description");
+        groupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setCreated_by("created_by");
+        groupResponse.setTribe("tribe");
+        groupResponse.setTeam("team");
+        groupResponse.setComponent("component");
+        groupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setUpdated_by("updated_by");
+        final List<BookMarkUrlGroupResponse> groupResponseList = Arrays.asList(groupResponse);
+        when(mockGroupManager.getAllGroupManager("emailId")).thenReturn(groupResponseList);
 
         // Run the test
-        final ResponseEntity<List> result = bookMarkUrlGroupServiceUnderTest.getAllGroupService("email");
+        final ResponseEntity<List> result = groupServiceUnderTest.getAllGroupService("email");
 
         // Verify the results
     }
 
-    @Test
-    public void testGetAllGroupService_ThrowsBookMarkUrlDigitalOrgException() {
+    /**
+     * Test get all group service throws digital org exception.
+     */
+    @Test(expectedExceptions = {BookMarkUrlDigitalOrgException.class})
+    public void testGetAllGroupService_ThrowsDigitalOrgException() {
         // Setup
 
-        // Configure BookMarkUrlGroupManager.getAllGroupManager(...).
-        final BookMarkUrlGroupResponse bookMarkUrlGroupResponse = new BookMarkUrlGroupResponse();
-        bookMarkUrlGroupResponse.setId(0);
-        bookMarkUrlGroupResponse.setName("name");
-        bookMarkUrlGroupResponse.setDescription("description");
-        bookMarkUrlGroupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setCreated_by("created_by");
-        bookMarkUrlGroupResponse.setTribe("tribe");
-        bookMarkUrlGroupResponse.setTeam("team");
-        bookMarkUrlGroupResponse.setComponent("component");
-        bookMarkUrlGroupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        bookMarkUrlGroupResponse.setUpdated_by("updated_by");
-        final List<BookMarkUrlGroupResponse> bookMarkUrlGroupResponses = Arrays.asList(bookMarkUrlGroupResponse);
-        when(mockBookMarkUrlGroupManager.getAllGroupManager("emailId")).thenReturn(bookMarkUrlGroupResponses);
+        // Configure GroupManager.getAllGroupManager(...).
+        final BookMarkUrlGroupResponse groupResponse = new BookMarkUrlGroupResponse();
+        groupResponse.setId(0);
+        groupResponse.setName("name");
+        groupResponse.setDescription("description");
+        groupResponse.setCreated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setCreated_by("created_by");
+        groupResponse.setTribe("tribe");
+        groupResponse.setTeam("team");
+        groupResponse.setComponent("component");
+        groupResponse.setUpdated_date(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        groupResponse.setUpdated_by("updated_by");
+        final List<BookMarkUrlGroupResponse> groupResponseList = Arrays.asList(groupResponse);
+        when(mockGroupManager.getAllGroupManager("emailId")).thenReturn(groupResponseList);
 
         // Run the test
-        assertThatThrownBy(() -> {
-            bookMarkUrlGroupServiceUnderTest.getAllGroupService("email");
-        }).isInstanceOf(BookMarkUrlDigitalOrgException.class);
+        groupServiceUnderTest.getAllGroupService("email");
     }
 }

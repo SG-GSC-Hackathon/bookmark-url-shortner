@@ -1,23 +1,44 @@
 package digital.transformation.bookmarkurlshortner.util;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
+/**
+ * The type Digital util test.
+ */
 public class BookMarkUrlDigitalUtilTest {
 
+    /**
+     * Test is email valid.
+     */
     @Test
-    public void testIsValid() {
-        assertThat(BookMarkUrlDigitalUtil.isValid("email")).isTrue();
+    public void testIsEmailValid() {
+        assertTrue(BookMarkUrlDigitalUtil.isEmailValid("email"));
     }
 
+    /**
+     * Test is url valid.
+     */
+    @Test
+    public void testIsUrlValid() {
+        assertTrue(BookMarkUrlDigitalUtil.isUrlValid("url"));
+    }
+
+    /**
+     * Test compress bytes.
+     */
     @Test
     public void testCompressBytes() {
-        assertThat(BookMarkUrlDigitalUtil.compressBytes("content".getBytes())).isEqualTo("content".getBytes());
+        assertEquals("content".getBytes(), BookMarkUrlDigitalUtil.compressBytes("content".getBytes()));
     }
 
+    /**
+     * Test decompress bytes.
+     */
     @Test
     public void testDecompressBytes() {
-        assertThat(BookMarkUrlDigitalUtil.decompressBytes("content".getBytes())).isEqualTo("content".getBytes());
+        assertEquals("content".getBytes(), BookMarkUrlDigitalUtil.decompressBytes("content".getBytes()));
     }
 }
