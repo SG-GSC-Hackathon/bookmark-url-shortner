@@ -2,6 +2,7 @@ package digital.transformation.bookmarkurlshortner.api;
 
 import digital.transformation.bookmarkurlshortner.exception.BookMarkUrlDigitalOrgException;
 import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlGroup;
+import digital.transformation.bookmarkurlshortner.model.request.SharedUserToGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlCardInGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupUpdateRequest;
@@ -67,7 +68,7 @@ public interface BookMarkUrlGroupApi {
     @ApiOperation(value = "add user to group", notes = "add user to group", response = ResponseEntity.class)
     @ApiResponses(value = {@ApiResponse(code = 201, message = "accepted operation", response = ResponseEntity.class), @ApiResponse(code = 400, message = "BookMarkUrlGroup type unknown")})
     @PostMapping(path = "/user-to-group", consumes = "application/json", produces = "application/json")
-    ResponseEntity addUserToGroup(@ApiParam(value = "email", required = true) @RequestBody String userEmail, String adminEmail, int groupId) throws BookMarkUrlDigitalOrgException;
+    ResponseEntity addUserToGroup(@RequestBody SharedUserToGroupRequest sharedUserToGroupRequest) throws BookMarkUrlDigitalOrgException;
 
     /**
      * Remove user from group response entity.
@@ -79,8 +80,8 @@ public interface BookMarkUrlGroupApi {
      */
     @ApiOperation(value = "remove user from group", notes = "remove BookMarkUrlUser from group", response = ResponseEntity.class)
     @ApiResponses(value = {@ApiResponse(code = 204, message = "No content", response = ResponseEntity.class), @ApiResponse(code = 400, message = "BookMarkUrlGroup type unknown")})
-    @DeleteMapping(path = "/user-from-group", consumes = "application/json", produces = "application/json")
-    ResponseEntity removeUserFromGroup(@ApiParam(value = "email", required = true) @RequestBody String userEmail,String email, int groupId) throws BookMarkUrlDigitalOrgException;
+    @PostMapping(path = "/user-from-group", consumes = "application/json", produces = "application/json")
+    ResponseEntity removeUserFromGroup(@RequestBody SharedUserToGroupRequest sharedUserToGroupRequest) throws BookMarkUrlDigitalOrgException;
 
     /**
      * Gets all group service.

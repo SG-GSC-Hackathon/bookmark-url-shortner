@@ -1,4 +1,4 @@
 # bookmark-bookMarkUrlUrl-shortner
 Bookmark bookMarkUrlUrl shortner
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1ad416d8550947c5b68dd7d88074faa0)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DigitalTransformation/bookmark-bookMarkUrlUrl-shortner&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d03c8c97305a4c14a634115b3803855c)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SG-GSC-Hackathon/bookmark-url-shortner-ui&amp;utm_campaign=Badge_Grade)

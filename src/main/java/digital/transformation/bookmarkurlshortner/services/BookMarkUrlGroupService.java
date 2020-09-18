@@ -5,6 +5,7 @@ import digital.transformation.bookmarkurlshortner.api.BookMarkUrlGroupApi;
 import digital.transformation.bookmarkurlshortner.exception.BookMarkUrlDigitalOrgException;
 import digital.transformation.bookmarkurlshortner.managers.BookMarkUrlGroupManager;
 import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlGroup;
+import digital.transformation.bookmarkurlshortner.model.request.SharedUserToGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlCardInGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupUpdateRequest;
@@ -42,14 +43,14 @@ public class BookMarkUrlGroupService implements BookMarkUrlGroupApi {
 
 
     @Override
-    public ResponseEntity addUserToGroup(String userEmail, String adminEmail, int groupId) throws BookMarkUrlDigitalOrgException {
-        bookMarkUrlGroupManager.addUserToGroup(userEmail, adminEmail, groupId);
+    public ResponseEntity addUserToGroup(SharedUserToGroupRequest sharedUserToGroupRequest) throws BookMarkUrlDigitalOrgException {
+        bookMarkUrlGroupManager.addUserToGroup( sharedUserToGroupRequest.getUserEmail(), sharedUserToGroupRequest.getAdminEmail(), sharedUserToGroupRequest.getGroupId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity removeUserFromGroup(String userEmail,String email, int groupId) throws BookMarkUrlDigitalOrgException {
-        bookMarkUrlGroupManager.removeUserToGroup(userEmail,email, groupId);
+    public ResponseEntity removeUserFromGroup(SharedUserToGroupRequest sharedUserToGroupRequest) throws BookMarkUrlDigitalOrgException {
+        bookMarkUrlGroupManager.removeUserToGroup(sharedUserToGroupRequest.getUserEmail(), sharedUserToGroupRequest.getAdminEmail(), sharedUserToGroupRequest.getGroupId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

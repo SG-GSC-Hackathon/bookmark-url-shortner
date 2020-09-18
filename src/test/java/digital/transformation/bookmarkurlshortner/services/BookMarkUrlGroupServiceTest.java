@@ -4,6 +4,7 @@ package digital.transformation.bookmarkurlshortner.services;
 import digital.transformation.bookmarkurlshortner.exception.BookMarkUrlDigitalOrgException;
 import digital.transformation.bookmarkurlshortner.managers.BookMarkUrlGroupManager;
 import digital.transformation.bookmarkurlshortner.model.entity.BookMarkUrlGroup;
+import digital.transformation.bookmarkurlshortner.model.request.SharedUserToGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupRequest;
 import digital.transformation.bookmarkurlshortner.model.request.BookMarkUrlGroupUpdateRequest;
 import digital.transformation.bookmarkurlshortner.model.response.BookMarkUrlGroupResponse;
@@ -278,7 +279,8 @@ public class BookMarkUrlGroupServiceTest {
         when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        final ResponseEntity result = groupServiceUnderTest.addUserToGroup("user", "admin", 0);
+        SharedUserToGroupRequest sharedUserToGroupRequest = new SharedUserToGroupRequest();
+        final ResponseEntity result = groupServiceUnderTest.addUserToGroup(sharedUserToGroupRequest);
 
         // Verify the results
         verify(mockGroupManager).addUserToGroup("user", "groupName", 1);
@@ -306,7 +308,8 @@ public class BookMarkUrlGroupServiceTest {
         when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        groupServiceUnderTest.addUserToGroup("user", "admin", 0);
+        SharedUserToGroupRequest sharedUserToGroupRequest = new SharedUserToGroupRequest();
+        groupServiceUnderTest.addUserToGroup(sharedUserToGroupRequest);
     }
 
     /**
@@ -331,7 +334,8 @@ public class BookMarkUrlGroupServiceTest {
         when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        final ResponseEntity result = groupServiceUnderTest.removeUserFromGroup("","user",  0);
+        SharedUserToGroupRequest sharedUserToGroupRequest = new SharedUserToGroupRequest();
+        final ResponseEntity result = groupServiceUnderTest.removeUserFromGroup(sharedUserToGroupRequest);
 
         // Verify the results
         verify(mockGroupManager).removeUserToGroup("","user", 1);
@@ -359,7 +363,8 @@ public class BookMarkUrlGroupServiceTest {
         when(mockGroupManager.getGroupById(0)).thenReturn(group);
 
         // Run the test
-        groupServiceUnderTest.removeUserFromGroup("","user", 0);
+        SharedUserToGroupRequest sharedUserToGroupRequest = new SharedUserToGroupRequest();
+        groupServiceUnderTest.removeUserFromGroup(sharedUserToGroupRequest);
     }
 
     /**
